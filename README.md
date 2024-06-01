@@ -13,7 +13,7 @@ By using `fileselector()`, you can input the file path `quickly` and `accurately
 ## Installation
 
 ```bash
-composer require macocci7/file-selector-promt
+composer require macocci7/file-selector-prompt
 ```
 
 ## Usage
