@@ -1,9 +1,9 @@
 <?php
 
 use function Laravel\Prompts\confirm;
-use function Laravel\Prompts\form;
 use function Laravel\Prompts\note;
 use function Laravel\Prompts\spin;
+use function Macocci7\FileSelectorPrompt\form;
 
 require __DIR__.'/../vendor/autoload.php';
 
@@ -90,7 +90,7 @@ $moreResponses = form()
         return $install;
     }, name: 'install')
     ->confirm('Finish installation?')
-    ->add(fn ($responses) => note(<<<EOT
+    ->add(fn () => note(<<<EOT
     Installation complete!
 
     To get started, run:

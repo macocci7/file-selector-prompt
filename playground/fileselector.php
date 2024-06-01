@@ -1,8 +1,8 @@
 <?php
 
-use function Laravel\Prompts\fileselector;
+use function Macocci7\FileSelectorPrompt\fileselector;
 
-require __DIR__.'/../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 $model = fileselector(
     label: 'Select a file to import.',

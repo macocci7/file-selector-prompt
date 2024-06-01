@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Prompts;
+namespace Macocci7\FileSelectorPrompt;
 
 use Closure;
 

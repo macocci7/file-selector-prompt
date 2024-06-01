@@ -1,10 +1,32 @@
 <?php
 
-namespace Laravel\Prompts;
+namespace Macocci7\FileSelectorPrompt;
 
 use Closure;
 use Illuminate\Support\Collection;
 use Laravel\Prompts\Exceptions\FormRevertedException;
+use Laravel\Prompts\Prompt;
+
+use function Laravel\Prompts\text;
+use function Laravel\Prompts\textarea;
+use function Laravel\Prompts\password;
+use function Laravel\Prompts\select;
+use function Laravel\Prompts\multiselect;
+use function Laravel\Prompts\search;
+use function Laravel\Prompts\multisearch;
+use function Laravel\Prompts\confirm;
+use function Laravel\Prompts\pause;
+use function Laravel\Prompts\suggest;
+use function Laravel\Prompts\spin;
+use function Laravel\Prompts\note;
+use function Laravel\Prompts\error;
+use function Laravel\Prompts\warning;
+use function Laravel\Prompts\alert;
+use function Laravel\Prompts\info;
+use function Laravel\Prompts\intro;
+use function Laravel\Prompts\outro;
+use function Laravel\Prompts\table;
+use function Laravel\Prompts\progress;
 
 class FormBuilder
 {

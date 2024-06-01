@@ -1,15 +1,18 @@
 <?php
 
-namespace Laravel\Prompts;
+namespace Macocci7\FileSelectorPrompt;
 
 use Closure;
 use Illuminate\Support\Collection;
+use Laravel\Prompts\Key;
+use Laravel\Prompts\Prompt;
+use Macocci7\FileSelectorPrompt\Themes\Default\FileSelectorRenderer;
 
 class FileSelector extends Prompt
 {
-    use Concerns\Scrolling;
-    use Concerns\Truncation;
-    use Concerns\TypedValue;
+    use \Laravel\Prompts\Concerns\Scrolling;
+    use \Laravel\Prompts\Concerns\Truncation;
+    use \Laravel\Prompts\Concerns\TypedValue;
 
     /**
      * The options for the suggest prompt.
@@ -40,6 +43,8 @@ class FileSelector extends Prompt
         public string $hint = '',
         public array $extensions = [],
     ) {
+        static::$themes['default'][static::class] = FileSelectorRenderer::class;
+
         $this->options = fn (string $value) => $this->entries($value);
 
         $this->initializeScrolling(null);

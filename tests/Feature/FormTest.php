@@ -4,8 +4,8 @@ use Laravel\Prompts\Key;
 use Laravel\Prompts\Prompt;
 
 use function Laravel\Prompts\confirm;
-use function Laravel\Prompts\form;
 use function Laravel\Prompts\outro;
+use function Macocci7\FileSelectorPrompt\form;
 
 it('can run multiple steps', function () {
     Prompt::fake([

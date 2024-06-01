@@ -1,11 +1,11 @@
 <?php
 
-use Laravel\Prompts\FileSelector;
 use Laravel\Prompts\Key;
 use Laravel\Prompts\Exceptions\NonInteractiveValidationException;
 use Laravel\Prompts\Prompt;
+use Macocci7\FileSelectorPrompt\FileSelector;
 
-use function Laravel\Prompts\fileselector;
+use function Macocci7\FileSelectorPrompt\fileselector;
 
 it('accepts any input', function () {
     Prompt::fake(['B', 'l', 'a', 'c', 'k', Key::ENTER]);

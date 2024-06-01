@@ -1,34 +1,60 @@
-<p align="center"><img width="386" height="68" src="/art/logo.svg" alt="Laravel Prompts"></p>
+# File Selector Prompt
 
-<p align="center">
-<a href="https://github.com/laravel/prompts/actions"><img src="https://github.com/laravel/prompts/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/prompts"><img src="https://img.shields.io/packagist/dt/laravel/prompts" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/prompts"><img src="https://img.shields.io/packagist/v/laravel/prompts" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/prompts"><img src="https://img.shields.io/packagist/l/laravel/prompts" alt="License"></a>
-</p>
+An Additional File Selector Prompt for your [Laravel/Prompts](https://github.com/laravel/prompts) Application.
 
-## Introduction
+## Feature
 
-Laravel Prompts is a PHP package for adding beautiful and user-friendly forms to your command-line applications, with browser-like features including placeholder text and validation.
+File Selector Prompt provides assistance in entering file paths `quickly` and `accurately` in interactive mode.
 
-Laravel Prompts is perfect for accepting user input in your [Artisan console commands](https://laravel.com/docs/artisan#writing-commands), but it may also be used in any command-line PHP project.
+https://github.com/laravel/prompts/assets/19181121/03c6f46d-a19d-4de0-af71-66b65c33e499
 
-## Official Documentation
+By using `fileselector()`, you can input the file path `quickly` and `accurately`.
 
-Documentation for Laravel Prompts can be found on the [Laravel website](https://laravel.com/docs/prompts).
+## Installation
 
-## Contributing
+```bash
+composer require macocci7/file-selector-promt
+```
 
-Thank you for considering contributing to Laravel Prompts! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Usage
 
-## Code of Conduct
+```php
+use function Macocci7\PromptsFileSelector\fileselector;
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+fileselector(
+    label: 'Select a file to import.',
+    placeholder: 'E.g. ./vendor/autoload.php',
+    validate: fn (string $value) => match (true) {
+        !is_readable($value) => 'Cannot read the file.',
+        default => null,
+    },
+    hint: 'Input the file path.',
+    extensions: [
+        '.json',
+        '.php',
+    ],
+);
+```
 
-## Security Vulnerabilities
+```php
+use function Macocci7\PromptsFileSelector\form;
 
-Please review [our security policy](https://github.com/laravel/prompts/security/policy) on how to report security vulnerabilities.
+form()
+    ->fileselector(
+        label: 'Select a file to import.',
+        placeholder: 'E.g. ./vendor/autoload.php',
+        validate: fn (string $value) => match (true) {
+            !is_readable($value) => 'Cannot read the file.',
+            default => null,
+        },
+        hint: 'Input the file path.',
+        extensions: [
+            '.json',
+            '.php',
+        ],
+    );
+```
 
 ## License
 
-Laravel Prompts is open-sourced software licensed under the [MIT license](LICENSE.md).
+[MIT license](LICENSE.md)

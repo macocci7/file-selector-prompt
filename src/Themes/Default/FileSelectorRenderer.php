@@ -1,14 +1,15 @@
 <?php
 
-namespace Laravel\Prompts\Themes\Default;
+namespace Macocci7\FileSelectorPrompt\Themes\Default;
 
-use Laravel\Prompts\FileSelector;
+use Macocci7\FileSelectorPrompt\FileSelector;
 use Laravel\Prompts\Themes\Contracts\Scrolling;
+use Laravel\Prompts\Themes\Default\Renderer;
 
 class FileSelectorRenderer extends Renderer implements Scrolling
 {
-    use Concerns\DrawsBoxes;
-    use Concerns\DrawsScrollbars;
+    use \Laravel\Prompts\Themes\Default\Concerns\DrawsBoxes;
+    use \Laravel\Prompts\Themes\Default\Concerns\DrawsScrollbars;
 
     /**
      * Render the fileselector prompt.
