@@ -38,7 +38,7 @@ $path = fileselector('Select a file to import.');
 You may also include placeholder text, a default value, a required value, and an informational hint:
 
 ```php
-fileselector(
+$path = fileselector(
     label: 'Select a file to import.',
     placeholder: 'E.g. ./vendor/autoload.php',
     default: '',
@@ -50,7 +50,7 @@ fileselector(
  If you would like to perform additional validation logic, you may pass a closure to the validate argument:
 
 ```php
-fileselector(
+$path = fileselector(
     label: 'Select a file to import.',
     placeholder: 'E.g. ./vendor/autoload.php',
     hint: 'Input the file path.',
@@ -63,7 +63,7 @@ fileselector(
 
 Finally, if you would like to filter the files listed in the choices with the file extensions, you may pass an array to the `extensions` argument:
 ```php
-fileselector(
+$path = fileselector(
     label: 'Select a file to import.',
     placeholder: 'E.g. ./vendor/autoload.php',
     hint: 'Input the file path.',
@@ -85,7 +85,7 @@ fileselector(
 ```php
 use function Macocci7\FileSelectorPrompt\form;
 
-form()
+$responses = form()
     ->fileselector(
         label: 'Select a file to import.',
         placeholder: 'E.g. ./vendor/autoload.php',
