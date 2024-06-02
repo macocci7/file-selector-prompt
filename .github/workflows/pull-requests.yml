@@ -41,7 +41,7 @@ jobs:
       - name: PHPStan
         run: |
           ./vendor/bin/phpstan --version
-          ./vendor/bin/phpstan analyze -c phpstan.neon
+          ./vendor/bin/phpstan analyze -c phpstan.neon.dist
 
       - name: Tests
         run: |

@@ -5,7 +5,9 @@ namespace Macocci7\FileSelectorPrompt;
 use Closure;
 use Illuminate\Support\Collection;
 use Laravel\Prompts\Exceptions\FormRevertedException;
+use Laravel\Prompts\Progress;
 use Laravel\Prompts\Prompt;
+use Macocci7\FileSelectorPrompt\FormStep;
 
 use function Laravel\Prompts\text;
 use function Laravel\Prompts\textarea;
@@ -33,7 +35,7 @@ class FormBuilder
     /**
      * Each step that should be executed.
      *
-     * @var array<int, \Laravel\Prompts\FormStep>
+     * @var array<int, \Laravel\Prompts\FormStep|FormStep>
      */
     protected array $steps = [];
 
