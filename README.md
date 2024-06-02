@@ -98,7 +98,7 @@ $responses = form()
             '.json',
             '.php',
         ],
-    );
+    )->submit();
 ```
 
 ## License
