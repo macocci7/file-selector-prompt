@@ -102,7 +102,7 @@ class FormBuilder
     /**
      * Prompt the user for text input.
      */
-    public function text(string $label, string $placeholder = '', string $default = '', bool|string $required = false, mixed $validate = null, string $hint = '', ?string $name = null): self
+    public function text(string $label, string $placeholder = '', string $default = '', bool|string $required = false, mixed $validate = null, string $hint = '', ?string $name = null, ?Closure $transform = null): self
     {
         return $this->runPrompt(text(...), get_defined_vars());
     }
@@ -110,7 +110,7 @@ class FormBuilder
     /**
      * Prompt the user for multiline text input.
      */
-    public function textarea(string $label, string $placeholder = '', string $default = '', bool|string $required = false, ?Closure $validate = null, string $hint = '', int $rows = 5, ?string $name = null): self
+    public function textarea(string $label, string $placeholder = '', string $default = '', bool|string $required = false, ?Closure $validate = null, string $hint = '', int $rows = 5, ?string $name = null, ?Closure $transform = null): self
     {
         return $this->runPrompt(textarea(...), get_defined_vars());
     }
@@ -118,7 +118,7 @@ class FormBuilder
     /**
      * Prompt the user for input, hiding the value.
      */
-    public function password(string $label, string $placeholder = '', bool|string $required = false, mixed $validate = null, string $hint = '', ?string $name = null): self
+    public function password(string $label, string $placeholder = '', bool|string $required = false, mixed $validate = null, string $hint = '', ?string $name = null, ?Closure $transform = null): self
     {
         return $this->runPrompt(password(...), get_defined_vars());
     }
@@ -129,7 +129,7 @@ class FormBuilder
      * @param  array<int|string, string>|Collection<int|string, string>  $options
      * @param  true|string  $required
      */
-    public function select(string $label, array|Collection $options, int|string|null $default = null, int $scroll = 5, mixed $validate = null, string $hint = '', bool|string $required = true, ?string $name = null): self
+    public function select(string $label, array|Collection $options, int|string|null $default = null, int $scroll = 5, mixed $validate = null, string $hint = '', bool|string $required = true, ?string $name = null, ?Closure $transform = null): self
     {
         return $this->runPrompt(select(...), get_defined_vars());
     }
@@ -140,7 +140,7 @@ class FormBuilder
      * @param  array<int|string, string>|Collection<int|string, string>  $options
      * @param  array<int|string>|Collection<int, int|string>  $default
      */
-    public function multiselect(string $label, array|Collection $options, array|Collection $default = [], int $scroll = 5, bool|string $required = false, mixed $validate = null, string $hint = 'Use the space bar to select options.', ?string $name = null): self
+    public function multiselect(string $label, array|Collection $options, array|Collection $default = [], int $scroll = 5, bool|string $required = false, mixed $validate = null, string $hint = 'Use the space bar to select options.', ?string $name = null, ?Closure $transform = null): self
     {
         return $this->runPrompt(multiselect(...), get_defined_vars());
     }
@@ -148,7 +148,7 @@ class FormBuilder
     /**
      * Prompt the user to confirm an action.
      */
-    public function confirm(string $label, bool $default = true, string $yes = 'Yes', string $no = 'No', bool|string $required = false, mixed $validate = null, string $hint = '', ?string $name = null): self
+    public function confirm(string $label, bool $default = true, string $yes = 'Yes', string $no = 'No', bool|string $required = false, mixed $validate = null, string $hint = '', ?string $name = null, ?Closure $transform = null): self
     {
         return $this->runPrompt(confirm(...), get_defined_vars());
     }
@@ -166,7 +166,7 @@ class FormBuilder
      *
      * @param  array<string>|Collection<int, string>|Closure(string): array<string>  $options
      */
-    public function suggest(string $label, array|Collection|Closure $options, string $placeholder = '', string $default = '', int $scroll = 5, bool|string $required = false, mixed $validate = null, string $hint = '', ?string $name = null): self
+    public function suggest(string $label, array|Collection|Closure $options, string $placeholder = '', string $default = '', int $scroll = 5, bool|string $required = false, mixed $validate = null, string $hint = '', ?string $name = null, ?Closure $transform = null): self
     {
         return $this->runPrompt(suggest(...), get_defined_vars());
     }
@@ -177,7 +177,7 @@ class FormBuilder
      * @param  Closure(string): array<int|string, string>  $options
      * @param  true|string  $required
      */
-    public function search(string $label, Closure $options, string $placeholder = '', int $scroll = 5, mixed $validate = null, string $hint = '', bool|string $required = true, ?string $name = null): self
+    public function search(string $label, Closure $options, string $placeholder = '', int $scroll = 5, mixed $validate = null, string $hint = '', bool|string $required = true, ?string $name = null, ?Closure $transform = null): self
     {
         return $this->runPrompt(search(...), get_defined_vars());
     }
@@ -187,7 +187,7 @@ class FormBuilder
      *
      * @param  Closure(string): array<int|string, string>  $options
      */
-    public function multisearch(string $label, Closure $options, string $placeholder = '', int $scroll = 5, bool|string $required = false, mixed $validate = null, string $hint = 'Use the space bar to select options.', ?string $name = null): self
+    public function multisearch(string $label, Closure $options, string $placeholder = '', int $scroll = 5, bool|string $required = false, mixed $validate = null, string $hint = 'Use the space bar to select options.', ?string $name = null, ?Closure $transform = null): self
     {
         return $this->runPrompt(multisearch(...), get_defined_vars());
     }
@@ -288,7 +288,7 @@ class FormBuilder
      *
      * @param   array<string>   $extensions
      */
-    public function fileselector(string $label, string $placeholder = '', string $default = '', int $scroll = 5, bool|string $required = false, mixed $validate = null, string $hint = '', ?string $name = null, array $extensions = []): self
+    public function fileselector(string $label, string $placeholder = '', string $default = '', int $scroll = 5, bool|string $required = false, mixed $validate = null, string $hint = '', ?string $name = null, array $extensions = [], ?Closure $transform = null): self
     {
         return $this->runPrompt(fileselector(...), get_defined_vars());
     }

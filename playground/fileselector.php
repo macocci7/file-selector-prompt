@@ -16,6 +16,7 @@ $model = fileselector(
         '.json',
         '.php',
     ],
+    transform: fn ($value) => realpath($value),
 );
 
 var_dump($model);
