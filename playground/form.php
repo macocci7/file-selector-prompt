@@ -27,6 +27,7 @@ $responses = form()
             ! $value => 'Please enter your name.',
             default => null,
         },
+        transform: fn ($value) => trim($value),
     )
     ->text(
         label: 'Where should we create your project?',
@@ -36,13 +37,15 @@ $responses = form()
             $value[0] !== '.' => 'Please enter a relative path',
             default => null,
         },
-        name: 'path'
+        name: 'path',
+        transform: fn ($value) => trim($value),
     )
     ->textarea('Describe your project')
     ->fileselector(
         label: 'Select the logo image.',
         placeholder: './public/img/logo.svg',
         hint: 'skip to use the default image.',
+        transform: fn ($value) => trim($value),
     )
     ->pause()
     ->submit();
