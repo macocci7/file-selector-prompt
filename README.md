@@ -47,7 +47,7 @@ $path = fileselector(
 );
 ```
 
- If you would like to perform additional validation logic, you may pass a closure to the validate argument:
+ If you would like to perform additional validation logic, you may pass a closure to the `validate` argument:
 
 ```php
 $path = fileselector(
@@ -58,6 +58,21 @@ $path = fileselector(
         !is_readable($value) => 'Cannot read the file.',
         default => null,
     },
+);
+```
+
+Additionally, you may make changes to the input before it gets validated by passing a closure to the `transform` argument.
+
+```php
+$path = fileselector(
+    label: 'Select a file to import.',
+    placeholder: 'E.g. ./vendor/autoload.php',
+    hint: 'Input the file path.',
+    validate: fn (string $value) => match (true) {
+        !is_readable($value) => 'Cannot read the file.',
+        default => null,
+    },
+    transform: fn ($value) => realpath($value),
 );
 ```
 
