@@ -10,6 +10,13 @@ https://github.com/laravel/prompts/assets/19181121/03c6f46d-a19d-4de0-af71-66b65
 
 By using `fileselector()`, you can input the file path `quickly` and `accurately`.
 
+This feature has been included into [Community Prompts](https://github.com/artisan-build/community-prompts).
+
+## Requirements
+
+- PHP 8.2 or later
+- [Composer](https://getcomposer.org/)
+
 ## Installation
 
 ```bash
