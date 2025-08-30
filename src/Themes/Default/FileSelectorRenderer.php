@@ -3,6 +3,7 @@
 namespace Macocci7\FileSelectorPrompt\Themes\Default;
 
 use Macocci7\FileSelectorPrompt\FileSelector;
+use Laravel\Prompts\Prompt;
 use Laravel\Prompts\Themes\Contracts\Scrolling;
 use Laravel\Prompts\Themes\Default\Renderer;
 
@@ -10,6 +11,7 @@ class FileSelectorRenderer extends Renderer implements Scrolling
 {
     use \Laravel\Prompts\Themes\Default\Concerns\DrawsBoxes;
     use \Laravel\Prompts\Themes\Default\Concerns\DrawsScrollbars;
+    use \Laravel\Prompts\Themes\Default\Concerns\RendersDescription;
 
     /**
      * Render the fileselector prompt.
@@ -17,18 +19,21 @@ class FileSelectorRenderer extends Renderer implements Scrolling
     public function __invoke(FileSelector $prompt): string
     {
         $maxWidth = $prompt->terminal()->cols() - 6;
+        $hasDescription = $prompt->description && trim($prompt->description) !== '';
 
         return match ($prompt->state) {
             'submit' => $this
                 ->box(
                     $this->dim($this->truncate($prompt->label, $prompt->terminal()->cols() - 6)),
-                    $this->truncate($prompt->value(), $maxWidth),
+                    $hasDescription ? $this->renderDescription($prompt, $maxWidth, fn () => $this->calculateDescriptionWidth($prompt, $maxWidth)) : $this->truncate($prompt->value(), $maxWidth),
+                    $hasDescription ? $this->truncate($prompt->value(), $maxWidth) : '',
                 ),
 
             'cancel' => $this
                 ->box(
                     $this->dim($this->truncate($prompt->label, $prompt->terminal()->cols() - 6)),
-                    $this->strikethrough($this->dim($this->truncate($prompt->value() ?: $prompt->placeholder, $maxWidth))),
+                    $hasDescription ? $this->renderDescription($prompt, $maxWidth, fn () => $this->calculateDescriptionWidth($prompt, $maxWidth)) : $this->strikethrough($this->dim($this->truncate($prompt->value() ?: $prompt->placeholder, $maxWidth))),
+                    $hasDescription ? $this->strikethrough($this->dim($this->truncate($prompt->value() ?: $prompt->placeholder, $maxWidth))) : '',
                     color: 'red',
                 )
                 ->error($prompt->cancelMessage),
@@ -36,8 +41,8 @@ class FileSelectorRenderer extends Renderer implements Scrolling
             'error' => $this
                 ->box(
                     $this->truncate($prompt->label, $prompt->terminal()->cols() - 6),
-                    $this->valueWithCursorAndArrow($prompt, $maxWidth),
-                    $this->renderOptions($prompt),
+                    $hasDescription ? $this->renderDescription($prompt, $maxWidth, fn () => $this->calculateDescriptionWidth($prompt, $maxWidth)) : $this->valueWithCursorAndArrow($prompt, $maxWidth),
+                    $hasDescription ? $this->valueWithCursorAndArrow($prompt, $maxWidth).PHP_EOL.$this->renderOptions($prompt) : $this->renderOptions($prompt),
                     color: 'yellow',
                 )
                 ->warning($this->truncate($prompt->error, $prompt->terminal()->cols() - 5)),
@@ -45,8 +50,8 @@ class FileSelectorRenderer extends Renderer implements Scrolling
             default => $this
                 ->box(
                     $this->cyan($this->truncate($prompt->label, $prompt->terminal()->cols() - 6)),
-                    $this->valueWithCursorAndArrow($prompt, $maxWidth),
-                    $this->renderOptions($prompt),
+                    $hasDescription ? $this->renderDescription($prompt, $maxWidth, fn () => $this->calculateDescriptionWidth($prompt, $maxWidth)) : $this->valueWithCursorAndArrow($prompt, $maxWidth),
+                    $hasDescription ? $this->valueWithCursorAndArrow($prompt, $maxWidth).PHP_EOL.$this->renderOptions($prompt) : $this->renderOptions($prompt),
                 )
                 ->when(
                     $prompt->hint,
@@ -111,6 +116,25 @@ class FileSelectorRenderer extends Renderer implements Scrolling
             min($this->longest($prompt->matches(), padding: 4), $prompt->terminal()->cols() - 6),
             $prompt->state === 'cancel' ? 'dim' : 'cyan'
         )->implode(PHP_EOL);
+    }
+
+    /**
+     * Calculate the width for description text.
+     */
+    protected function calculateDescriptionWidth(Prompt $prompt, int $maxWidth): int
+    {
+        if (! $prompt instanceof FileSelector) {
+            return $this->minWidth;
+        }
+
+        $titleWidth = mb_strwidth($this->stripEscapeSequences($prompt->label));
+        $inputWidth = max(
+            mb_strwidth($prompt->placeholder),
+            mb_strwidth($prompt->default),
+            $this->longest($prompt->matches())
+        );
+
+        return max($this->minWidth, max($titleWidth, min($inputWidth + 4, $maxWidth)));
     }
 
     /**

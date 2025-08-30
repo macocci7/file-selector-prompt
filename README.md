@@ -8,9 +8,9 @@ File Selector Prompt provides assistance in entering file paths `quickly` and `a
 
 https://github.com/laravel/prompts/assets/19181121/03c6f46d-a19d-4de0-af71-66b65c33e499
 
-By using `fileselector()`, you can input the file path `quickly` and `accurately`.
+By using `fileselector()`, you can input a file path `quickly` and `accurately`.
 
-This feature has been included into [Community Prompts](https://github.com/artisan-build/community-prompts).
+This feature has been included in [Community Prompts](https://github.com/artisan-build/community-prompts).
 
 ## Requirements
 
@@ -32,7 +32,7 @@ composer require macocci7/file-selector-prompt
 
 The `fileselector` function can be used to provide auto-completion for possible choices.
 
-This function lists the entries in the directory on the local file system that matches the input, as the options for suggest.
+This function lists the entries in the local file system directory that matches the input, as suggestions.
 
 The user can still provide any answer, regardless of the auto-completion hints:
 
@@ -40,6 +40,15 @@ The user can still provide any answer, regardless of the auto-completion hints:
 use function Macocci7\FileSelectorPrompt\fileselector;
 
 $path = fileselector('Select a file to import.');
+```
+
+You may add a description above the main prompt content within the same box, separated by a divider line, to provide contextual help text to users.
+
+```php
+$path = fileselector(
+    label: 'Select a file to import.',
+    description: "This is a file selector prompt example.\nYou can select files with specified extensions (.json, .php).",
+);
 ```
 
 You may also include placeholder text, a default value, a required value, and an informational hint:
@@ -50,7 +59,7 @@ $path = fileselector(
     placeholder: 'E.g. ./vendor/autoload.php',
     default: '',
     required: 'The file path is required.',
-    hint: 'Input the file path.',
+    hint: 'Input a file path.',
 );
 ```
 
@@ -60,7 +69,7 @@ $path = fileselector(
 $path = fileselector(
     label: 'Select a file to import.',
     placeholder: 'E.g. ./vendor/autoload.php',
-    hint: 'Input the file path.',
+    hint: 'Input a file path.',
     validate: fn (string $value) => match (true) {
         !is_readable($value) => 'Cannot read the file.',
         default => null,
@@ -74,7 +83,7 @@ Additionally, you may make changes to the input before it gets validated by pass
 $path = fileselector(
     label: 'Select a file to import.',
     placeholder: 'E.g. ./vendor/autoload.php',
-    hint: 'Input the file path.',
+    hint: 'Input a file path.',
     validate: fn (string $value) => match (true) {
         !is_readable($value) => 'Cannot read the file.',
         default => null,
@@ -88,7 +97,7 @@ Finally, if you would like to filter the files listed in the choices with the fi
 $path = fileselector(
     label: 'Select a file to import.',
     placeholder: 'E.g. ./vendor/autoload.php',
-    hint: 'Input the file path.',
+    hint: 'Input a file path.',
     validate: fn (string $value) => match (true) {
         !is_readable($value) => 'Cannot read the file.',
         default => null,
@@ -111,7 +120,7 @@ $responses = form()
     ->fileselector(
         label: 'Select a file to import.',
         placeholder: 'E.g. ./vendor/autoload.php',
-        hint: 'Input the file path.',
+        hint: 'Input a file path.',
         validate: fn (string $value) => match (true) {
             !is_readable($value) => 'Cannot read the file.',
             default => null,

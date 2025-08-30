@@ -46,6 +46,7 @@ $responses = form()
         placeholder: './public/img/logo.svg',
         hint: 'skip to use the default image.',
         transform: fn ($value) => trim($value),
+        description: "This is a file selector prompt example.\nYou can select files with specified extensions (.json, .php).",
     )
     ->pause()
     ->submit();

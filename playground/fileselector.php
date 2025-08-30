@@ -17,6 +17,7 @@ $model = fileselector(
         '.php',
     ],
     transform: fn ($value) => realpath($value),
+    description: "This is a file selector prompt example.\nYou can select files with specified extensions (.json, .php).",
 );
 
 var_dump($model);
